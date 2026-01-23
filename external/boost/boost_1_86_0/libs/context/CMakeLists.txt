@@ -269,3 +269,13 @@ if(BUILD_TESTING AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt")
   add_subdirectory(test)
 
 endif()
+
+install(TARGETS boost_context
+LIBRARY 
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+ARCHIVE
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+)
+
+set_target_properties(boost_context PROPERTIES FOLDER "External/boost")
+set_target_properties(boost_context_obj PROPERTIES FOLDER "External/boost")

@@ -69,3 +69,10 @@ export(TARGETS shermes APPEND FILE ${CMAKE_BINARY_DIR}/ImportHostCompilers.cmake
 # compiler, so this is not the default for shermes.
 add_custom_target(shermes-dep)
 add_dependencies(shermes-dep shermes hermesvm_a hermesvmlean_a hermesvm hermesvmlean shermes_console shermes_console_a)
+
+
+
+set_target_properties(shermes PROPERTIES FOLDER "Tools")
+set_target_properties(shermes-dep PROPERTIES FOLDER "Tools")
+set_target_properties(shermes_console PROPERTIES FOLDER "Tools")
+set_target_properties(shermes_console_a PROPERTIES FOLDER "Tools")

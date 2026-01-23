@@ -3,3 +3,6 @@ add_hermes_tool(FileCheck
   )
 
 target_link_libraries(FileCheck PRIVATE LLVHSupport)
+
+
+set_target_properties(FileCheck PROPERTIES FOLDER "External/llvh")

@@ -8,3 +8,5 @@ add_hermes_tool(interp-dispatch-bench
   ${ALL_HEADER_FILES}
   LINK_LIBS hermesvm_a
   )
+
+  set_target_properties(interp-dispatch-bench PROPERTIES FOLDER "Tools")

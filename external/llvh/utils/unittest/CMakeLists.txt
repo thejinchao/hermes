@@ -60,4 +60,6 @@ add_hermes_library(llvh-gtest STATIC
   ${LIBS}
 )
 
+set_target_properties(llvh-gtest PROPERTIES FOLDER "External/llvh")
+
 add_subdirectory(UnitTestMain)

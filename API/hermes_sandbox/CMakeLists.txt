@@ -29,3 +29,5 @@ if("${CMAKE_C_COMPILER_ID}" MATCHES "Clang" OR
     "${CMAKE_C_COMPILER_ID}" MATCHES "GNU")
   set_property(SOURCE ${IMPL_SRCS} APPEND_STRING PROPERTY COMPILE_FLAGS "-w")
 endif()
+
+set_target_properties(hermesSandboxRuntime PROPERTIES FOLDER "API/hermes_sandbox")

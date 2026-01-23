@@ -31,3 +31,11 @@ add_hermes_tool(hermes-jsi-lean-shared
   ${ALL_HEADER_FILES}
   )
 target_link_libraries(hermes-jsi-lean-shared PRIVATE hermesvmlean timerStats)
+
+
+
+
+set_target_properties(hermes-jsi PROPERTIES FOLDER "Tools")
+set_target_properties(hermes-jsi-lean PROPERTIES FOLDER "Tools")
+set_target_properties(hermes-jsi-shared PROPERTIES FOLDER "Tools")
+set_target_properties(hermes-jsi-lean-shared PROPERTIES FOLDER "Tools")

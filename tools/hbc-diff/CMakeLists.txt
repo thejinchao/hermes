@@ -12,3 +12,5 @@ target_link_libraries(hbc-diff
   hermesHBCBackend
   hermesInst
 )
+
+set_target_properties(hbc-diff PROPERTIES FOLDER "Tools")

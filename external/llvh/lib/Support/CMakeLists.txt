@@ -63,3 +63,6 @@ add_hermes_library(LLVHSupport
 if (LLVM_PTHREAD_LIB)
     target_link_libraries(LLVHSupport_obj ${LLVM_PTHREAD_LIB})
 endif()
+
+set_target_properties(LLVHSupport PROPERTIES FOLDER "External/llvh")
+set_target_properties(LLVHSupport_obj PROPERTIES FOLDER "External/llvh")

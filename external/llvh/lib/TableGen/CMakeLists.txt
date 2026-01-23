@@ -9,3 +9,6 @@ add_hermes_library(LLVHTableGen
   TGLexer.cpp
   TGParser.cpp
   )
+
+set_target_properties(LLVHTableGen PROPERTIES FOLDER "External/llvh")
+set_target_properties(LLVHTableGen_obj PROPERTIES FOLDER "External/llvh")

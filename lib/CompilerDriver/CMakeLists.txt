@@ -22,3 +22,6 @@ add_hermes_library(hermesCompilerDriver ${source_files}
   hermesSupport
   zip
 )
+
+set_target_properties(hermesCompilerDriver PROPERTIES FOLDER "Lib/CompilerDriver")
+set_target_properties(hermesCompilerDriver_obj PROPERTIES FOLDER "Lib/CompilerDriver")

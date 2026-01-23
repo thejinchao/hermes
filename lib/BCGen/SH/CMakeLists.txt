@@ -19,3 +19,6 @@ add_hermes_library(hermesSHBackend
   hermesSourceMap
   hermesAST
 )
+
+set_target_properties(hermesSHBackend PROPERTIES FOLDER "Lib/BCGen")
+set_target_properties(hermesSHBackend_obj PROPERTIES FOLDER "Lib/BCGen")

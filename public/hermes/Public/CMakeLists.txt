@@ -11,3 +11,8 @@ install(DIRECTORY "${PROJECT_SOURCE_DIR}/public/hermes/Public" DESTINATION inclu
   FILES_MATCHING PATTERN "*.h")
 install(DIRECTORY "${HERMES_COMMON_DIR}/public/hermes/Public" DESTINATION include/hermes
   FILES_MATCHING PATTERN "*.h")
+
+
+
+set_target_properties(hermesPublic PROPERTIES FOLDER "Public")
+set_target_properties(hermesPublic_obj PROPERTIES FOLDER "Public")

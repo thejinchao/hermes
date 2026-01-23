@@ -21,3 +21,6 @@ add_subdirectory(SH)
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/facebook)
   add_subdirectory(facebook)
 endif()
+
+set_target_properties(hermesBackend PROPERTIES FOLDER "Lib/BCGen")
+set_target_properties(hermesBackend_obj PROPERTIES FOLDER "Lib/BCGen")

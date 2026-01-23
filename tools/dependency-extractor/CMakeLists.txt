@@ -31,3 +31,8 @@ if (EMSCRIPTEN)
   target_link_options(emdependency-extractor PRIVATE
     "SHELL: -s BINARYEN_ASYNC_COMPILATION=0 -s SINGLE_FILE=1 -s WASM_ASYNC_COMPILATION=0")
 endif ()
+
+
+
+set_target_properties(dependency-extractor PROPERTIES FOLDER "Tools")
+set_target_properties(emdependency-extractor PROPERTIES FOLDER "Tools")

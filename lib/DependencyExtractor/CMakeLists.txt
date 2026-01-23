@@ -13,3 +13,5 @@ add_hermes_library(hermesDependencyExtractor ${source_files}
   hermesParser
   hermesSupport
 )
+set_target_properties(hermesDependencyExtractor PROPERTIES FOLDER "Lib/DependencyExtractor")
+set_target_properties(hermesDependencyExtractor_obj PROPERTIES FOLDER "Lib/DependencyExtractor")

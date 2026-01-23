@@ -61,6 +61,7 @@ endif()
 
 if (WIN32)
 add_definitions(-D_WINDOWS)
+add_compile_options(/utf-8)
 endif()
 
 # This must be consistent with the release_version in:
@@ -70,6 +71,14 @@ endif()
 project(Hermes
         VERSION 1.0.0
         LANGUAGES C CXX)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+if(MSVC)
+set(HERMES_INSTALL_LIB_PATH lib/$<$<CONFIG:Debug>:Debug>$<$<CONFIG:Release>:Release>)
+else()
+set(HERMES_INSTALL_LIB_PATH lib)
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 

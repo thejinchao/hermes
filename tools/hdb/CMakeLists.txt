@@ -10,3 +10,5 @@ add_hermes_tool(hdb hdb.cpp LINK_LIBS hermesvm_a)
 install(TARGETS hdb
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hdb PROPERTIES FOLDER "Tools")

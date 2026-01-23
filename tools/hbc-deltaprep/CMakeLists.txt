@@ -11,3 +11,5 @@ add_hermes_tool(hbc-deltaprep
 target_link_libraries(hbc-deltaprep
   hermesHBCBackend
 )
+
+set_target_properties(hbc-deltaprep PROPERTIES FOLDER "Tools")

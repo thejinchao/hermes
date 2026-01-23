@@ -9,6 +9,10 @@ add_hermes_library(cdpInternal
   DomainState.cpp
   JSONValueInterfaces.cpp
   MessageTypes.cpp
+  MessageConverters.cpp
   RemoteObjectConverters.cpp
   RemoteObjectsTable.cpp
   LINK_LIBS jsi hermesapi)
+
+set_target_properties(cdpInternal PROPERTIES FOLDER "API/hermes")
+set_target_properties(cdpInternal_obj PROPERTIES FOLDER "API/hermes")

@@ -7,3 +7,6 @@ add_hermes_library(hermesAST2JS
     AST2JS.cpp
     LINK_OBJLIBS hermesAST
 )
+
+set_target_properties(hermesAST2JS PROPERTIES FOLDER "Lib/AST2JS")
+set_target_properties(hermesAST2JS_obj PROPERTIES FOLDER "Lib/AST2JS")

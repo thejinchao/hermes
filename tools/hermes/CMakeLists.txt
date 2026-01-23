@@ -34,3 +34,5 @@ endif()
 install(TARGETS hermes
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hermes PROPERTIES FOLDER "Tools")

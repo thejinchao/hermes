@@ -196,3 +196,7 @@ add_hermes_library(hermesVMRuntime ${source_files}
         LINK_LIBS ${JITLIBS} ${VM_PLATFORM_LIBS})
 
 add_subdirectory(Instrumentation)
+
+
+set_target_properties(hermesVMRuntime PROPERTIES FOLDER "Lib/VM")
+set_target_properties(hermesVMRuntime_obj PROPERTIES FOLDER "Lib/VM")

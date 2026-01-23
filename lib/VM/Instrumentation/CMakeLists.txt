@@ -9,3 +9,6 @@ add_hermes_library(hermesInstrumentation
   StatSamplingThread.cpp
   LINK_OBJLIBS hermesSupport
 )
+
+set_target_properties(hermesInstrumentation PROPERTIES FOLDER "Lib/VM")
+set_target_properties(hermesInstrumentation_obj PROPERTIES FOLDER "Lib/VM")

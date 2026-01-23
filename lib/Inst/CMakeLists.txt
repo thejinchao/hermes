@@ -13,3 +13,6 @@ add_hermes_library(hermesInst ${source_files}
   hermesSupport
   hermesFrontEndDefs
 )
+
+set_target_properties(hermesInst PROPERTIES FOLDER "Lib/Inst")
+set_target_properties(hermesInst_obj PROPERTIES FOLDER "Lib/Inst")

@@ -21,3 +21,5 @@ if (EMSCRIPTEN)
   target_link_options(emhermesc PRIVATE
     "SHELL: -s NODEJS_CATCH_EXIT=0 -s NODEJS_CATCH_REJECTION=0")
 endif ()
+
+set_target_properties(emhermesc PROPERTIES FOLDER "Tools")

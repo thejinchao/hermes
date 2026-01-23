@@ -11,3 +11,6 @@ add_hermes_library(hermesSourceMap
     SourceMapTranslator.cpp
     LINK_OBJLIBS hermesParser
 )
+
+set_target_properties(hermesSourceMap PROPERTIES FOLDER "Lib/SourceMap")
+set_target_properties(hermesSourceMap_obj PROPERTIES FOLDER "Lib/SourceMap")

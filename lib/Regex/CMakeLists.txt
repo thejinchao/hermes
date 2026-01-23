@@ -13,3 +13,8 @@ add_hermes_library(hermesRegex
     ${source_files}
     LINK_OBJLIBS hermesPlatformUnicode
 )
+
+
+
+set_target_properties(hermesRegex PROPERTIES FOLDER "Lib/Regex")
+set_target_properties(hermesRegex_obj PROPERTIES FOLDER "Lib/Regex")

@@ -7,3 +7,6 @@ add_hermes_library(hermesADT
   CompactArray.cpp
   LINK_OBJLIBS hermesSupport
 )
+
+set_target_properties(hermesADT PROPERTIES FOLDER "Lib/ADT")
+set_target_properties(hermesADT_obj PROPERTIES FOLDER "Lib/ADT")

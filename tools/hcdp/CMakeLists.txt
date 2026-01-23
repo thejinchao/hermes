@@ -38,3 +38,5 @@ endif()
 install(TARGETS hcdp
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hcdp PROPERTIES FOLDER "Tools")

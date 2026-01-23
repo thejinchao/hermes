@@ -11,3 +11,5 @@ add_hermes_tool(hvm
 install(TARGETS hvm
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hvm PROPERTIES FOLDER "Tools")

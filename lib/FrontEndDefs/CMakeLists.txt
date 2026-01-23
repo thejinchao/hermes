@@ -8,3 +8,6 @@ set(source_files
 )
 
 add_hermes_library(hermesFrontEndDefs ${source_files})
+
+set_target_properties(hermesFrontEndDefs PROPERTIES FOLDER "Lib/FrontEndDefs")
+set_target_properties(hermesFrontEndDefs_obj PROPERTIES FOLDER "Lib/FrontEndDefs")

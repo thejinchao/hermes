@@ -101,3 +101,9 @@ add_library(hermesInternalJavaScript_obj ALIAS hermesInternalUnit_obj)
 else()
 add_library(hermesInternalJavaScript_obj ALIAS hermesInternalBytecode_obj)
 endif()
+
+
+
+set_target_properties(hermesInternalBytecode PROPERTIES FOLDER "Lib/InternalJavaScript")
+set_target_properties(hermesInternalBytecode_obj PROPERTIES FOLDER "Lib/InternalJavaScript")
+set_target_properties(InternalBytecodeInclude PROPERTIES FOLDER "Lib/InternalJavaScript")
