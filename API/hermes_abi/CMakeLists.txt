@@ -24,3 +24,7 @@ endif()
 add_library(hermesABIRuntimeWrapper STATIC HermesABIRuntimeWrapper.cpp)
 target_include_directories(hermesABIRuntimeWrapper PUBLIC ..)
 target_link_libraries(hermesABIRuntimeWrapper PUBLIC jsi hermesPublic)
+
+
+set_target_properties(hermesabi PROPERTIES FOLDER "API/hermes_abi")
+set_target_properties(hermesABIRuntimeWrapper PROPERTIES FOLDER "API/hermes_abi")

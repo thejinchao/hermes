@@ -25,3 +25,6 @@ elseif(APPLE)
 endif()
 
 hermes_link_icu(hermesPlatformUnicode_obj)
+
+set_target_properties(hermesPlatformUnicode PROPERTIES FOLDER "Lib/Platform")
+set_target_properties(hermesPlatformUnicode_obj PROPERTIES FOLDER "Lib/Platform")

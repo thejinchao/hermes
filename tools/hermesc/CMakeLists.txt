@@ -15,3 +15,5 @@ export(TARGETS hermesc APPEND FILE ${CMAKE_BINARY_DIR}/ImportHostCompilers.cmake
 install(TARGETS hermesc
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hermesc PROPERTIES FOLDER "Tools")

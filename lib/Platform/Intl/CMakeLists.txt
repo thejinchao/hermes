@@ -37,3 +37,6 @@ if(HERMES_ENABLE_INTL)
     hermes_link_icu(hermesPlatformIntl)
   endif()
 endif()
+
+set_target_properties(hermesBCP47Parser PROPERTIES FOLDER "Lib/Platform")
+set_target_properties(hermesBCP47Parser_obj PROPERTIES FOLDER "Lib/Platform")

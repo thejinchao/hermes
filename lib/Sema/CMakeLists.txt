@@ -22,3 +22,6 @@ add_hermes_library(hermesSema
     hermesSupport
     hermesAST
 )
+
+set_target_properties(hermesSema PROPERTIES FOLDER "Lib/Sema")
+set_target_properties(hermesSema_obj PROPERTIES FOLDER "Lib/Sema")

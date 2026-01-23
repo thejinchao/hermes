@@ -17,3 +17,5 @@ target_link_libraries(hbcdump
 install(TARGETS hbcdump
   RUNTIME DESTINATION bin
 )
+
+set_target_properties(hbcdump PROPERTIES FOLDER "Tools")

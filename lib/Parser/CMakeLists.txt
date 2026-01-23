@@ -16,3 +16,6 @@ add_hermes_library(hermesParser
         rust-api.cpp
         LINK_OBJLIBS hermesSupport hermesAST dtoa LLVHSupport
 )
+
+set_target_properties(hermesParser PROPERTIES FOLDER "Lib/Parser")
+set_target_properties(hermesParser_obj PROPERTIES FOLDER "Lib/Parser")

@@ -11,3 +11,5 @@ add_hermes_tool(hbc-attribute
 target_link_libraries(hbc-attribute
   hermesHBCBackend
 )
+
+set_target_properties(hbc-attribute PROPERTIES FOLDER "Tools")

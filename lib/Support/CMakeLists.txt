@@ -52,3 +52,8 @@ add_hermes_library(hermesSupport
         LINK_OBJLIBS ${LINK_OBJLIBS} ${BOOST_CONTEXT_LIB}
         LINK_LIBS ${LINK_LIBS}
 )
+
+
+
+set_target_properties(hermesSupport PROPERTIES FOLDER "Lib/Support")
+set_target_properties(hermesSupport_obj PROPERTIES FOLDER "Lib/Support")

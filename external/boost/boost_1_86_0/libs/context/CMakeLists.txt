@@ -220,6 +220,10 @@ add_hermes_library(boost_context
   ${STACK_TRAITS_SOURCES}
 )
 
+set_target_properties(boost_context PROPERTIES FOLDER "External/boost")
+set_target_properties(boost_context_obj PROPERTIES FOLDER "External/boost")
+
+
 #add_library(Boost::context ALIAS boost_context)
 
 #target_include_directories(boost_context PUBLIC include)

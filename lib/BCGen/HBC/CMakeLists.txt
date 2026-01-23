@@ -44,3 +44,8 @@ add_hermes_library(hermesHBCBackendLean
   LINK_OBJLIBS
   hermesSupport
 )
+
+set_target_properties(hermesHBCBackendLean PROPERTIES FOLDER "Lib/BCGen")
+set_target_properties(hermesHBCBackendLean_obj PROPERTIES FOLDER "Lib/BCGen")
+set_target_properties(hermesHBCBackend PROPERTIES FOLDER "Lib/BCGen")
+set_target_properties(hermesHBCBackend_obj PROPERTIES FOLDER "Lib/BCGen")

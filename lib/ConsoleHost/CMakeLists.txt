@@ -10,3 +10,6 @@ set(source_files
 add_hermes_library(hermesConsoleHost ${source_files}
   LINK_OBJLIBS hermesPublic hermesapi
 )
+
+set_target_properties(hermesConsoleHost PROPERTIES FOLDER "Lib/ConsoleHost")
+set_target_properties(hermesConsoleHost_obj PROPERTIES FOLDER "Lib/ConsoleHost")

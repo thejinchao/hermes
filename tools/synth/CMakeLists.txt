@@ -16,3 +16,6 @@ target_link_libraries(synth
   synthTrace_obj
   synthTraceParser_obj
 )
+
+
+set_target_properties(synth PROPERTIES FOLDER "Tools")

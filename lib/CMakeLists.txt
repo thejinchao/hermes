@@ -281,3 +281,16 @@ string(APPEND HERMESVM_MODEL "_s" ${HERMESVM_LOG_HEAP_SEGMENT_SIZE})
 string(APPEND HERMESVM_MODEL "_p" ${CMAKE_SIZEOF_VOID_P})
 
 configure_file(config/libhermesvm-config.h.in config/libhermesvm-config.h)
+
+
+
+set_target_properties(hermescompiler PROPERTIES FOLDER "Lib")
+set_target_properties(hermesFrontend PROPERTIES FOLDER "Lib")
+set_target_properties(hermesFrontend_obj PROPERTIES FOLDER "Lib")
+set_target_properties(hermesOptimizer PROPERTIES FOLDER "Lib")
+set_target_properties(hermesOptimizer_obj PROPERTIES FOLDER "Lib")
+
+set_target_properties(hermesvm PROPERTIES FOLDER "Lib")
+set_target_properties(hermesvm_a PROPERTIES FOLDER "Lib")
+set_target_properties(hermesvmlean PROPERTIES FOLDER "Lib")
+set_target_properties(hermesvmlean_a PROPERTIES FOLDER "Lib")

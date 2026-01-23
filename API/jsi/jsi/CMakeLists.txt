@@ -26,3 +26,7 @@ target_compile_options(jsi PRIVATE ${jsi_compile_flags})
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/API/jsi/" DESTINATION include
   FILES_MATCHING PATTERN "*.h"
   PATTERN "test" EXCLUDE)
+
+
+
+set_target_properties(jsi PROPERTIES FOLDER "API/jsi")

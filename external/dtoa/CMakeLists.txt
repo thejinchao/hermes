@@ -14,3 +14,6 @@ add_hermes_library(dtoa
         dtoa.c
         g_fmt.c
         locks.cpp)
+
+set_target_properties(dtoa PROPERTIES FOLDER "External/dtoa")
+set_target_properties(dtoa_obj PROPERTIES FOLDER "External/dtoa")

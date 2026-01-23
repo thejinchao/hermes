@@ -18,3 +18,6 @@ add_hermes_library(hermesAST
     hermesRegex
     hermesSupport
 )
+
+set_target_properties(hermesAST PROPERTIES FOLDER "Lib/AST")
+set_target_properties(hermesAST_obj PROPERTIES FOLDER "Lib/AST")

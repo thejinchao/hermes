@@ -5,3 +5,6 @@
 
 # Make a library to enable unit testing
 add_hermes_library(cdpInternal ConsoleMessage.cpp DomainState.cpp LINK_LIBS jsi hermesapi)
+
+set_target_properties(cdpInternal PROPERTIES FOLDER "API/hermes")
+set_target_properties(cdpInternal_obj PROPERTIES FOLDER "API/hermes")

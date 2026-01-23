@@ -9,3 +9,6 @@ add_hermes_library(hermesPlatform
 
 add_subdirectory(Intl)
 add_subdirectory(Unicode)
+
+set_target_properties(hermesPlatform PROPERTIES FOLDER "Lib/Platform")
+set_target_properties(hermesPlatform_obj PROPERTIES FOLDER "Lib/Platform")
