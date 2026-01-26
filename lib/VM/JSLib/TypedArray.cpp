@@ -26,10 +26,91 @@ namespace {
 /// @{
 
 /// ES7 22.2.2.1.1 IterableToArrayLike
+/// If items has an @@iterator method, iterate through it and collect
+/// values into an array. Otherwise, return ToObject(items).
 CallResult<HermesValue> iterableToArrayLike(Runtime &runtime, Handle<> items) {
-  // NOTE: this is a very basic function for now because iterators do not
-  // yet exist in Hermes. When they do, update this function.
-  return toObject(runtime, items);
+  struct : public Locals {
+    PinnedValue<> iteratorSymbol;
+    PinnedValue<> usingIterator;
+    PinnedValue<> nextValue;
+    PinnedValue<JSArray> A;
+  } lv;
+  LocalsRAII lraii{runtime, &lv};
+  GCScope gcScope{runtime};
+
+  // 1. Let usingIterator be ? GetMethod(items, @@iterator).
+  lv.iteratorSymbol = HermesValue::encodeSymbolValue(
+      Predefined::getSymbolID(Predefined::SymbolIterator));
+  auto methodRes = getMethod(runtime, items, lv.iteratorSymbol);
+  if (LLVM_UNLIKELY(methodRes == ExecutionStatus::EXCEPTION)) {
+    return ExecutionStatus::EXCEPTION;
+  }
+  lv.usingIterator = std::move(*methodRes);
+
+  // 2. If usingIterator is undefined, items is not iterable, so assume it is
+  // an array-like object and return ToObject(items).
+  if (lv.usingIterator->isUndefined()) {
+    return toObject(runtime, items);
+  }
+
+  // 3. Let iteratorRecord be ? GetIterator(items, sync, usingIterator).
+  auto iterRes = getCheckedIterator(
+      runtime, items, Handle<Callable>::vmcast(&lv.usingIterator));
+  if (LLVM_UNLIKELY(iterRes == ExecutionStatus::EXCEPTION)) {
+    return ExecutionStatus::EXCEPTION;
+  }
+  auto iteratorRecord = *iterRes;
+
+  // 4. Let values be a new empty List.
+  auto arrRes = JSArray::create(runtime, 0, 0);
+  if (LLVM_UNLIKELY(arrRes == ExecutionStatus::EXCEPTION)) {
+    return iteratorCloseAndRethrow(runtime, iteratorRecord.iterator);
+  }
+  lv.A = std::move(*arrRes);
+
+  // 5. Repeat,
+  uint32_t k = 0;
+  while (true) {
+    GCScopeMarkerRAII marker{gcScope};
+
+    // Get next iterator result.
+    auto next = iteratorStep(runtime, iteratorRecord);
+    if (LLVM_UNLIKELY(next == ExecutionStatus::EXCEPTION)) {
+      return ExecutionStatus::EXCEPTION;
+    }
+
+    // If done, return the array.
+    if (!next.getValue()) {
+      if (LLVM_UNLIKELY(
+              JSArray::setLengthProperty(lv.A, runtime, k) ==
+              ExecutionStatus::EXCEPTION)) {
+        return ExecutionStatus::EXCEPTION;
+      }
+      return lv.A.getHermesValue();
+    }
+
+    // Get the value from the iterator result.
+    auto valueRes = JSObject::getNamed_RJS(
+        *next, runtime, Predefined::getSymbolID(Predefined::value));
+    if (LLVM_UNLIKELY(valueRes == ExecutionStatus::EXCEPTION)) {
+      return iteratorCloseAndRethrow(runtime, iteratorRecord.iterator);
+    }
+    lv.nextValue = std::move(*valueRes);
+
+    // Check for overflow before appending.
+    if (LLVM_UNLIKELY(k == UINT32_MAX)) {
+      (void)runtime.raiseRangeError("iterable too long for TypedArray");
+      return iteratorCloseAndRethrow(runtime, iteratorRecord.iterator);
+    }
+
+    // Append to array.
+    if (LLVM_UNLIKELY(
+            JSArray::setElementAt(lv.A, runtime, k, lv.nextValue) ==
+            ExecutionStatus::EXCEPTION)) {
+      return iteratorCloseAndRethrow(runtime, iteratorRecord.iterator);
+    }
+    ++k;
+  }
 }
 
 /// Given a numeric \p value and \p length, returns either length + value if
@@ -210,7 +291,8 @@ CallResult<HermesValue> typedArrayConstructorFromObject(
   }
   GCScope scope(runtime);
   // 8. Let k be 0.
-  uint64_t i = 0;
+  // Note: createBuffer validates that len fits in size_type.
+  JSTypedArrayBase::size_type i = 0;
   auto marker = scope.createMarker();
   // 9. Repeat, while k < len.
   for (; i < len; ++i) {
@@ -220,9 +302,8 @@ CallResult<HermesValue> typedArrayConstructorFromObject(
     if ((propRes = getIndexed_RJS(runtime, lv.arrayLike, i)) ==
         ExecutionStatus::EXCEPTION)
       return ExecutionStatus::EXCEPTION;
-    PinnedValue<> iValue = HermesValue::encodeTrustedNumberValue(i);
     lv.kValue = std::move(*propRes);
-    if (JSTypedArray<T, C>::putComputed_RJS(self, runtime, iValue, lv.kValue) ==
+    if (JSObject::setOwnIndexed(self, runtime, i, lv.kValue) ==
         ExecutionStatus::EXCEPTION) {
       return ExecutionStatus::EXCEPTION;
     }
@@ -719,7 +800,8 @@ CallResult<HermesValue> typedArrayFrom(void *, Runtime &runtime) {
     return ExecutionStatus::EXCEPTION;
   }
   // 9. Let k be 0.
-  uint64_t k = 0;
+  // Note: typedArrayCreate validates that len fits in size_type.
+  JSTypedArrayBase::size_type k = 0;
   // 10. Repeat, while k < len.
   for (; k < len; ++k) {
     GCScopeMarkerRAII marker{runtime};
@@ -748,9 +830,7 @@ CallResult<HermesValue> typedArrayFrom(void *, Runtime &runtime) {
     // the call to the mapfn, so either way it is the correct value.
     // d. Else, let mappedValue be kValue (already done by initializer).
     // e. Perform ? Set(targetObj, Pk, mappedValue, true).
-    PinnedValue<> kVal = HermesValue::encodeTrustedNumberValue(k);
-    if (JSObject::putComputed_RJS(
-            lv.targetObj, runtime, kVal, lv.mappedValue) ==
+    if (JSObject::setOwnIndexed(lv.targetObj, runtime, k, lv.mappedValue) ==
         ExecutionStatus::EXCEPTION) {
       return ExecutionStatus::EXCEPTION;
     }
@@ -764,7 +844,6 @@ CallResult<HermesValue> typedArrayFrom(void *, Runtime &runtime) {
 CallResult<HermesValue> typedArrayOf(void *, Runtime &runtime) {
   NativeArgs args = runtime.getCurrentFrame().getNativeArgs();
   struct : public Locals {
-    PinnedValue<> k;
     PinnedValue<> kValue;
     PinnedValue<JSTypedArrayBase> newObj;
   } lv;
@@ -789,18 +868,16 @@ CallResult<HermesValue> typedArrayOf(void *, Runtime &runtime) {
     return ExecutionStatus::EXCEPTION;
   }
   // 6. Let k be 0.
-  lv.k = HermesValue::encodeTrustedNumberValue(0);
   GCScope scope(runtime);
   auto marker = scope.createMarker();
   // 7. Repeat, while k < len.
-  for (; lv.k->getNumberAs<uint64_t>() < len;
-       lv.k = HermesValue::encodeTrustedNumberValue(
-           lv.k->getNumberAs<uint64_t>() + 1)) {
+  // Note: typedArrayCreate validates that len fits in size_type.
+  for (JSTypedArrayBase::size_type k = 0; k < len; ++k) {
     // a. Let kValue be items[k].
-    lv.kValue = args.getArg(lv.k->getNumberAs<uint64_t>());
+    lv.kValue = args.getArg(k);
     // b. Let Pk be ! ToString(k).
     // c. Perform ? Set(newObj, Pk, kValue, true).
-    if (JSObject::putComputed_RJS(lv.newObj, runtime, lv.k, lv.kValue) ==
+    if (JSObject::setOwnIndexed(lv.newObj, runtime, k, lv.kValue) ==
         ExecutionStatus::EXCEPTION) {
       return ExecutionStatus::EXCEPTION;
     }
