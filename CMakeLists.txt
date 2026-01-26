@@ -73,6 +73,12 @@ project(Hermes
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if(MSVC)
+set(HERMES_INSTALL_LIB_PATH lib/$<$<CONFIG:Debug>:Debug>$<$<CONFIG:Release>:Release>)
+else()
+set(HERMES_INSTALL_LIB_PATH lib)
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 
 set(LLVH_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/llvh)

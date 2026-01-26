@@ -282,14 +282,25 @@ string(APPEND HERMESVM_MODEL "_p" ${CMAKE_SIZEOF_VOID_P})
 
 configure_file(config/libhermesvm-config.h.in config/libhermesvm-config.h)
 
+install(TARGETS hermesvm 
+LIBRARY 
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+ARCHIVE
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+)
 
+install(TARGETS hermesvm_a
+LIBRARY 
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+ARCHIVE
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+)
 
 set_target_properties(hermescompiler PROPERTIES FOLDER "Lib")
 set_target_properties(hermesFrontend PROPERTIES FOLDER "Lib")
 set_target_properties(hermesFrontend_obj PROPERTIES FOLDER "Lib")
 set_target_properties(hermesOptimizer PROPERTIES FOLDER "Lib")
 set_target_properties(hermesOptimizer_obj PROPERTIES FOLDER "Lib")
-
 set_target_properties(hermesvm PROPERTIES FOLDER "Lib")
 set_target_properties(hermesvm_a PROPERTIES FOLDER "Lib")
 set_target_properties(hermesvmlean PROPERTIES FOLDER "Lib")

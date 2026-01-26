@@ -114,6 +114,9 @@ add_hermes_library(synthTraceParser SynthTraceParser.cpp LINK_OBJLIBS hermesSupp
 # compileJS uses neither exceptions nor RTTI
 add_hermes_library(compileJS CompileJS.cpp LINK_OBJLIBS hermesPublic hermesHBCBackend)
 
+install(FILES ${api_headers}
+    DESTINATION "include/hermes"
+)
 
 set_target_properties(hermesapi PROPERTIES FOLDER "API/hermes")
 set_target_properties(hermesapi_obj PROPERTIES FOLDER "API/hermes")
