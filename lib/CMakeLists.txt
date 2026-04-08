@@ -32,6 +32,7 @@ add_hermes_library(hermesOptimizer
   Optimizer/Scalar/TDZDedup.cpp
   IR/Analysis.cpp
   IR/IREval.cpp
+FOLDER_PROPERTY "Lib"
 )
 
 add_hermes_library(hermesFrontend
@@ -51,6 +52,7 @@ add_hermes_library(hermesFrontend
   Utils/Dumper.cpp
   Optimizer/Wasm/WasmIntrinsics.cpp
   LINK_LIBS hermesSupport hermesFrontEndDefs hermesAST hermesParser
+FOLDER_PROPERTY "Lib"
 )
 
 add_subdirectory(VM)

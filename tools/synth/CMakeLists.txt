@@ -9,6 +9,7 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 
 add_hermes_tool(synth
   synth.cpp
+  FOLDER_PROPERTY "Tools"
 )
 
 target_link_libraries(synth

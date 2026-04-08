@@ -12,4 +12,5 @@ add_hermes_library(hermesInst STATIC ${source_files}
   LINK_LIBS
   hermesSupport
   hermesFrontEndDefs
+FOLDER_PROPERTY "Lib/Inst"
 )

@@ -9,4 +9,5 @@ add_hermes_library(hermesInstrumentation
   ProcessStats.cpp
   StatSamplingThread.cpp
   LINK_LIBS hermesSupport
+FOLDER_PROPERTY "Lib/VM"
 )

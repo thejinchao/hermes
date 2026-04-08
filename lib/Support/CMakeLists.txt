@@ -39,3 +39,6 @@ add_hermes_library(hermesSupport
         LEB128.cpp
         LINK_LIBS ${link_libs}
 )
+
+set_target_properties(hermesSupport PROPERTIES FOLDER "Lib/Support")
+

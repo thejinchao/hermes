@@ -25,7 +25,8 @@ add_hermes_tool(hermes
   hermes.cpp
   repl.cpp
   ${ALL_HEADER_FILES}
-  )
+   FOLDER_PROPERTY "Tools"
+ )
 
 if(HAVE_LIBREADLINE)
   target_compile_definitions(hermes PRIVATE HAVE_LIBREADLINE)

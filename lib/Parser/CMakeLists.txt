@@ -17,6 +17,7 @@ add_hermes_library(hermesParser
         FlowHelpers.cpp
         rust-api.cpp
         LINK_LIBS hermesSupport hermesAST dtoa
+FOLDER_PROPERTY "Lib/Parser"
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

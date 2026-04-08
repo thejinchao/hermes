@@ -21,4 +21,5 @@ add_hermes_library(hermesCompilerDriver STATIC ${source_files}
   hermesFlowParser
   hermesSupport
   zip
+FOLDER_PROPERTY "Lib/CompilerDriver"
 )

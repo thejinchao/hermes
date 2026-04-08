@@ -5,6 +5,7 @@
 
 add_hermes_library(hermesADT
         CompactArray.cpp
+FOLDER_PROPERTY "Lib/ADT"
 )
 
 target_link_libraries(hermesADT

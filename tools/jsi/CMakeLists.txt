@@ -11,7 +11,8 @@ add_hermes_tool(hermes-jsi
   jsi.cpp
   ${ALL_HEADER_FILES}
   LINK_LIBS hermesvm timerStats
-  )
+  FOLDER_PROPERTY "Tools"
+ )
 
 # TODO: We have to disable RTTI here because we use LLVM libraries compiled
 #       without RTTI. Disabling RTTI with EH enabled is likely to cause subtle

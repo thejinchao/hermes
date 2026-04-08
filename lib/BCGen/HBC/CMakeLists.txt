@@ -36,6 +36,7 @@ add_hermes_library(hermesHBCBackend
   hermesSourceMap
   hermesAST
   hermesPublic
+FOLDER_PROPERTY "Lib/BCGen"
 )
 
 add_hermes_library(hermesHBCBackendLean
@@ -49,6 +50,10 @@ add_hermes_library(hermesHBCBackendLean
   LINK_LIBS
   hermesSupport
   hermesPublic
+FOLDER_PROPERTY "Lib/BCGen"
 )
 
 target_compile_definitions(hermesHBCBackendLean PUBLIC HERMESVM_LEAN)
+
+set_target_properties(hermesHBCBackendLean PROPERTIES FOLDER "Lib/BCGen")
+

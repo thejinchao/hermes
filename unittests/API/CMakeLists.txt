@@ -45,7 +45,7 @@ endif ()
 set(HERMES_LINK_COMPONENTS LLVHSupport)
 
 # Build SegmentTestCompile without EH and RTTI
-add_hermes_library(SegmentTestCompile STATIC ${APISegmentTestCompileSources} LINK_LIBS hermesHBCBackend)
+add_hermes_library(SegmentTestCompile STATIC ${APISegmentTestCompileSources} LINK_LIBS hermesHBCBackend FOLDER_PROPERTY "UnitTest")
 
 # Turn on EH and RTTI for APITests
 set(HERMES_ENABLE_EH_RTTI ON)

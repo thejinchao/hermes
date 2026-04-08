@@ -9,6 +9,7 @@ add_hermes_tool(emhermesc
   emhermesc.cpp
   ${ALL_HEADER_FILES}
   LINK_LIBS hermesHBCBackend
+  FOLDER_PROPERTY "Tools"
   )
 
 if (EMSCRIPTEN)

@@ -93,7 +93,7 @@ function(hermes_update_compile_flags name)
 endfunction()
 
 function(add_hermes_library name)
-  cmake_parse_arguments(ARG "" "" "LINK_LIBS" ${ARGN})
+  cmake_parse_arguments(ARG "" "FOLDER_PROPERTY" "LINK_LIBS" ${ARGN})
   add_library(${name} STATIC ${ARG_UNPARSED_ARGUMENTS})
   target_link_libraries(${name} ${ARG_LINK_LIBS} ${HERMES_LINK_COMPONENTS})
   set_property(TARGET ${name} PROPERTY POSITION_INDEPENDENT_CODE ON)
@@ -101,13 +101,25 @@ function(add_hermes_library name)
   if (HERMES_ENABLE_BITCODE)
     target_compile_options(${name} PUBLIC "-fembed-bitcode")
   endif ()
+  if (ARG_FOLDER_PROPERTY)
+    set_target_properties(${name} PROPERTIES FOLDER "${ARG_FOLDER_PROPERTY}")
+  endif()
+  install(TARGETS ${name}
+  LIBRARY 
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+  ARCHIVE
+    DESTINATION ${HERMES_INSTALL_LIB_PATH}
+  )
 endfunction(add_hermes_library)
 
 function(add_hermes_executable name)
-  cmake_parse_arguments(ARG "" "" "LINK_LIBS" ${ARGN})
+  cmake_parse_arguments(ARG "" "FOLDER_PROPERTY" "LINK_LIBS" ${ARGN})
   add_executable(${name} ${ARG_UNPARSED_ARGUMENTS})
   target_link_libraries(${name} ${ARG_LINK_LIBS} ${HERMES_LINK_COMPONENTS})
   target_link_options(${name} PRIVATE ${HERMES_EXTRA_LINKER_FLAGS})
+  if (ARG_FOLDER_PROPERTY)
+    set_target_properties(${name} PROPERTIES FOLDER "${ARG_FOLDER_PROPERTY}")
+  endif()
   hermes_update_compile_flags(${name})
 endfunction(add_hermes_executable)
 
@@ -209,6 +221,11 @@ if (XCODE)
 endif ()
 
 if (MSVC)
+  # Remove CMake's default exception handling flags to avoid D9025 warnings
+  # when we set our own in hermes_update_cxx_flags()
+  string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  string(REPLACE "/EHsc" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.0)
     # For MSVC 2013, disable iterator null pointer checking in debug mode,
     # especially so std::equal(nullptr, nullptr, nullptr) will not assert.

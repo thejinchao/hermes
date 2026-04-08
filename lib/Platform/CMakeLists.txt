@@ -5,6 +5,7 @@
 
 add_hermes_library(hermesPlatform
         Logging.cpp
+FOLDER_PROPERTY "Lib/Platform"
 )
 
 add_subdirectory(Intl)

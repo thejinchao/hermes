@@ -14,11 +14,12 @@ set(source_files
 
 if (HERMES_UNICODE_LITE)
   add_definitions(-DHERMES_PLATFORM_UNICODE=HERMES_PLATFORM_UNICODE_LITE)
-  add_hermes_library(hermesPlatformUnicode STATIC ${source_files})
+  add_hermes_library(hermesPlatformUnicode STATIC ${source_files} FOLDER_PROPERTY "Lib/Platform")
 elseif(HERMES_IS_ANDROID)
   add_hermes_library(hermesPlatformUnicode STATIC ${source_files}
       LINK_LIBS
       fbjni::fbjni
+      FOLDER_PROPERTY "Lib/Platform"
   )
   set_source_files_properties(PlatformUnicodeJava.cpp PROPERTIES
       COMPILE_FLAGS "-frtti -fexceptions")
@@ -26,6 +27,7 @@ else()
   add_hermes_library(hermesPlatformUnicode STATIC ${source_files}
       LINK_LIBS
       ${CORE_FOUNDATION}
+      FOLDER_PROPERTY "Lib/Platform"
   )
 endif()
 

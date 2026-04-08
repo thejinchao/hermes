@@ -8,6 +8,8 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 add_hermes_tool(dependency-extractor
   dependency-extractor.cpp
   ${ALL_HEADER_FILES}
+FOLDER_PROPERTY
+  "Tools"
   )
 
 target_link_libraries(dependency-extractor
@@ -19,6 +21,8 @@ target_link_libraries(dependency-extractor
 add_hermes_tool(emdependency-extractor
   emdependency-extractor.cpp
   ${ALL_HEADER_FILES}
+FOLDER_PROPERTY
+  "Tools"
   )
 
 target_link_libraries(emdependency-extractor

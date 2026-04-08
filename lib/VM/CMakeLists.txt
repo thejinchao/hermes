@@ -190,12 +190,14 @@ add_hermes_library(hermesVMRuntime STATIC ${source_files}
     ${link_libs}
     hermesHBCBackend
     hermesParser
+    FOLDER_PROPERTY "Lib/VM"
 )
 
 add_hermes_library(hermesVMRuntimeLean STATIC ${source_files}
     LINK_LIBS
     ${link_libs}
     hermesHBCBackendLean
+    FOLDER_PROPERTY "Lib/VM"
 )
 target_compile_definitions(hermesVMRuntimeLean PUBLIC HERMESVM_LEAN)
 

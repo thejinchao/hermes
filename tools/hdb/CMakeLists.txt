@@ -7,7 +7,8 @@ set(HERMES_ENABLE_EH_RTTI ON)
 add_hermes_tool(hdb
   hdb.cpp
   ${ALL_HEADER_FILES}
-  )
+   FOLDER_PROPERTY "Tools"
+ )
 
 # TODO: Even though this does not use llvh at all, a quirk of our build is that
 #       pthread is found and provided by llvh.

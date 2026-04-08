@@ -6,4 +6,5 @@ add_hermes_library(gtest_main
 
   LINK_LIBS
   LLVHSupport # Depends on llvh::cl
-  )
+  FOLDER_PROPERTY "External/llvh"
+)

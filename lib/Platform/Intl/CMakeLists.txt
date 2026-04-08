@@ -3,12 +3,13 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-add_hermes_library(hermesBCP47Parser STATIC BCP47Parser.cpp)
+add_hermes_library(hermesBCP47Parser STATIC BCP47Parser.cpp FOLDER_PROPERTY "Lib/Platform")
 
 if(HERMES_ENABLE_INTL)
   if(HERMES_IS_ANDROID)
     add_hermes_library(hermesPlatformIntl STATIC PlatformIntlAndroid.cpp
         LINK_LIBS fbjni::fbjni hermesPublic
+        FOLDER_PROPERTY "Lib/Platform"
     )
     target_compile_options(hermesPlatformIntl PRIVATE -frtti -fexceptions)
   elseif(APPLE)
@@ -17,6 +18,7 @@ if(HERMES_ENABLE_INTL)
         ${FOUNDATION}
         hermesBCP47Parser
         hermesPublic
+        FOLDER_PROPERTY "Lib/Platform"
     )
     # Work around a bug in unity builds where it tries to build Obj-C as C++.
     set_target_properties(hermesPlatformIntl PROPERTIES UNITY_BUILD false)
@@ -34,6 +36,7 @@ if(HERMES_ENABLE_INTL)
         LINK_LIBS
         hermesBCP47Parser
         hermesPublic
+        FOLDER_PROPERTY "Lib/Platform"
     )
     hermes_link_icu(hermesPlatformIntl)
   endif()

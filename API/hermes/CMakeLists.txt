@@ -4,7 +4,7 @@
 # LICENSE file in the root directory of this source tree.
 
 # compileJS uses neither exceptions nor RTTI
-add_hermes_library(compileJS CompileJS.cpp LINK_LIBS hermesPublic hermesHBCBackend)
+add_hermes_library(compileJS CompileJS.cpp LINK_LIBS hermesPublic hermesHBCBackend FOLDER_PROPERTY "API/hermes")
 
 if(HERMES_ENABLE_DEBUGGER)
   # Some inspector sources need to be built without RTTI because they consume
@@ -60,7 +60,7 @@ if(HERMES_ENABLE_DEBUGGER)
   set(INSPECTOR_DEPS hermesParser)
 endif()
 
-add_hermes_library(synthTraceParser SynthTraceParser.cpp LINK_LIBS hermesSupport hermesParser synthTrace)
+add_hermes_library(synthTraceParser SynthTraceParser.cpp LINK_LIBS hermesSupport hermesParser synthTrace FOLDER_PROPERTY "API/hermes")
 
 # All remaining targets in this file use both exceptions and RTTI.
 set(HERMES_ENABLE_EH_RTTI ON)
@@ -92,12 +92,16 @@ if(HERMES_THREAD_SAFETY_ANALYSIS)
 endif()
 
 add_hermes_library(synthTrace hermes_tracing.cpp SynthTrace.cpp TracingRuntime.cpp
-  LINK_LIBS hermesvm hermesPlatform)
+  LINK_LIBS hermesvm hermesPlatform
+   FOLDER_PROPERTY "API/hermes"
+)
 
-add_hermes_library(timerStats TimerStats.cpp LINK_LIBS jsi hermesSupport)
+add_hermes_library(timerStats TimerStats.cpp LINK_LIBS jsi hermesSupport FOLDER_PROPERTY "API/hermes")
 
 add_hermes_library(traceInterpreter TraceInterpreter.cpp
-  LINK_LIBS hermesvm hermesInstrumentation synthTrace synthTraceParser)
+  LINK_LIBS hermesvm hermesInstrumentation synthTrace synthTraceParser
+  FOLDER_PROPERTY "API/hermes"
+)
 
 add_library(hermesvm ${api_sources})
 target_link_libraries(hermesvm PUBLIC jsi PRIVATE hermesVMRuntime ${INSPECTOR_DEPS})
@@ -168,11 +172,14 @@ set_target_properties(hermesvm PROPERTIES
 
 install(TARGETS hermesvm
   RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION ${HERMES_INSTALL_LIB_PATH}
+  ARCHIVE DESTINATION ${HERMES_INSTALL_LIB_PATH}
   FRAMEWORK DESTINATION Library/Frameworks/${HERMES_APPLE_TARGET_PLATFORM}
 )
 # Install headers into `include` while keeping required directory structure
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/API/hermes" DESTINATION include
   FILES_MATCHING PATTERN "*.h"
   PATTERN "synthtest" EXCLUDE)
+
+set_target_properties(hermesvm PROPERTIES FOLDER "API/hermes")
+set_target_properties(hermesvmlean PROPERTIES FOLDER "API/hermes")

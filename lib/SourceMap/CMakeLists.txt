@@ -10,4 +10,5 @@ add_hermes_library(hermesSourceMap
     SourceMapParser.cpp
     SourceMapTranslator.cpp
     LINK_LIBS hermesParser
+FOLDER_PROPERTY "Lib/SourceMap"
 )

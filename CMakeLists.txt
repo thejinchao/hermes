@@ -48,6 +48,13 @@ if(HERMES_APPLE_TARGET_PLATFORM MATCHES "catalyst")
   set(THREADS_PREFER_PTHREAD_FLAG ON)
 endif()
 
+
+if (WIN32)
+add_definitions(-D_WINDOWS)
+add_compile_options(/utf-8)
+endif()
+
+
 # This must be consistent with the release_version in:
 # - android/build.gradle
 # - npm/package.json
@@ -55,6 +62,14 @@ endif()
 project(Hermes
         VERSION 0.12.0
         LANGUAGES C CXX)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+if(MSVC)
+set(HERMES_INSTALL_LIB_PATH lib/$<$<CONFIG:Debug>:Debug>$<$<CONFIG:Release>:Release>)
+else()
+set(HERMES_INSTALL_LIB_PATH lib)
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 

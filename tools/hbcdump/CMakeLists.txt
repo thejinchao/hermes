@@ -10,7 +10,8 @@ add_hermes_tool(hbcdump
   HBCParser.cpp
   ProfileAnalyzer.cpp
   ${ALL_HEADER_FILES}
-  )
+  FOLDER_PROPERTY "Tools"
+ )
 
 target_link_libraries(hbcdump
   hermesHBCBackend

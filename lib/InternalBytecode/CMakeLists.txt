@@ -15,6 +15,7 @@ endif()
 
 add_hermes_library(hermesInternalBytecode
     InternalBytecode.cpp
+FOLDER_PROPERTY "Lib/InternalBytecode"
 )
 
 set(JS_COMPILER_FLAGS "-O" "-Wno-undefined-variable" "-g0")

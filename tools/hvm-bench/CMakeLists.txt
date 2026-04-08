@@ -8,6 +8,7 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 add_hermes_tool(interp-dispatch-bench
   interp-dispatch-bench.cpp
   ${ALL_HEADER_FILES}
+  FOLDER_PROPERTY "Tools"
   )
 
 target_link_libraries(interp-dispatch-bench

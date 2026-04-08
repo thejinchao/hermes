@@ -8,4 +8,5 @@ add_hermes_library(hermesFlowParser
     LINK_LIBS
     hermesSupport
     ${LIBFLOWPARSER}
+FOLDER_PROPERTY "Lib/FlowParser"
 )

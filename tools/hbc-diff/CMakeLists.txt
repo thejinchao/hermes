@@ -8,6 +8,7 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 add_hermes_tool(hbc-diff
   hbc-diff.cpp
   ${ALL_HEADER_FILES}
+  FOLDER_PROPERTY "Tools"
   )
 
 target_link_libraries(hbc-diff

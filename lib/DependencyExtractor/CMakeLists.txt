@@ -12,4 +12,5 @@ add_hermes_library(hermesDependencyExtractor STATIC ${source_files}
   hermesAST
   hermesParser
   hermesSupport
+FOLDER_PROPERTY "Lib/DependencyExtractor"
 )

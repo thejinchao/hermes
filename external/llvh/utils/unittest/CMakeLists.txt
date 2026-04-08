@@ -57,6 +57,7 @@ add_hermes_library(gtest
   LINK_LIBS
   ${LIBS}
   LLVHSupport # Depends on llvh::raw_ostream
+  FOLDER_PROPERTY "External/llvh"
 )
 
 add_subdirectory(UnitTestMain)

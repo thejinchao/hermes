@@ -15,4 +15,5 @@ add_hermes_library(hermesAST
     LINK_LIBS
     hermesRegex
     hermesSupport
+FOLDER_PROPERTY "Lib/AST"
 )

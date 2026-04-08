@@ -26,6 +26,7 @@ add_hermes_tool(hcdp
   IPC.cpp
   ${NO_EH_RTTI_SOURCES}
   ${ALL_HEADER_FILES}
+  FOLDER_PROPERTY "Tools"
   )
 
 target_link_libraries(hcdp hermesSupport hermesvm hermesParser)

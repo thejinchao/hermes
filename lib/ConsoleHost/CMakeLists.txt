@@ -11,4 +11,5 @@ set(source_files
 
 add_hermes_library(hermesConsoleHost STATIC ${source_files}
   LINK_LIBS hermesVMRuntime hermesInstrumentation
+  FOLDER_PROPERTY "Lib/ConsoleHost"
 )

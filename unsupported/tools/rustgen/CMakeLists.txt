@@ -8,4 +8,5 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 add_hermes_tool(rustgen
   rustgen.cpp
   ${ALL_HEADER_FILES}
+  FOLDER_PROPERTY "Tools"
   )

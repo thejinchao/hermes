@@ -13,4 +13,6 @@ endif()
 add_hermes_library(dtoa STATIC
         dtoa.c
         g_fmt.c
-        locks.cpp)
+        locks.cpp
+FOLDER_PROPERTY "External/dtoa"
+)

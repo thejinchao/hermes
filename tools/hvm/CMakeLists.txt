@@ -8,7 +8,8 @@ set(HERMES_LINK_COMPONENTS LLVHSupport)
 add_hermes_tool(hvm
   hvm.cpp
   ${ALL_HEADER_FILES}
-  )
+  FOLDER_PROPERTY "Tools"
+ )
 
 target_link_libraries(hvm
   hermesVMRuntime

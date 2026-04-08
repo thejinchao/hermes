@@ -10,6 +10,7 @@ add_hermes_library(hermesBackend
   Lowering.cpp
   Exceptions.cpp
   LINK_LIBS hermesFrontend hermesOptimizer
+FOLDER_PROPERTY "Lib/BCGen"
 )
 
 add_subdirectory(HBC)

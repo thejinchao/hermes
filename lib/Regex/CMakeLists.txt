@@ -12,4 +12,5 @@ set(source_files
 add_hermes_library(hermesRegex
     STATIC ${source_files}
     LINK_LIBS hermesPlatformUnicode
+    FOLDER_PROPERTY "Lib/Regex"
 )
