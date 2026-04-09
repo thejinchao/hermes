@@ -110,6 +110,13 @@ function(add_hermes_library name)
   ARCHIVE
     DESTINATION ${HERMES_INSTALL_LIB_PATH}
   )
+  install(FILES
+  $<TARGET_FILE_DIR:${name}>/$<TARGET_FILE_BASE_NAME:${name}>.pdb
+  DESTINATION 
+    ${HERMES_INSTALL_LIB_PATH}
+  CONFIGURATIONS 
+    Debug RelWithDebInfo
+  )
 endfunction(add_hermes_library)
 
 function(add_hermes_executable name)

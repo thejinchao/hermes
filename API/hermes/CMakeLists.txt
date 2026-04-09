@@ -176,6 +176,13 @@ install(TARGETS hermesvm
   ARCHIVE DESTINATION ${HERMES_INSTALL_LIB_PATH}
   FRAMEWORK DESTINATION Library/Frameworks/${HERMES_APPLE_TARGET_PLATFORM}
 )
+
+install(FILES
+  $<TARGET_FILE_DIR:hermesvm>/$<TARGET_FILE_BASE_NAME:hermesvm>.pdb
+  DESTINATION ${HERMES_INSTALL_LIB_PATH}
+  CONFIGURATIONS Debug RelWithDebInfo
+)
+  
 # Install headers into `include` while keeping required directory structure
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/API/hermes" DESTINATION include
   FILES_MATCHING PATTERN "*.h"
