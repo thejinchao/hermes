@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-cmake_minimum_required(VERSION 3.13.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 # Set the VERSION variables based on the project command
 if (POLICY CMP0048)
@@ -293,6 +293,11 @@ set(HERMES_BUILD_APPLE_FRAMEWORK ON CACHE BOOL
 set(IMPORT_HOST_COMPILERS "" CACHE FILEPATH
   "Import the hermesc compiler from another build using the given CMake file.")
 
+if(WIN32)
+set(HERMES_BUILD_MSVC_DYNAMIC_RUNTIME_LIBRARY ON CACHE BOOL
+  "Use Multi-Thread DLL runtime library in MSVC.")
+endif()
+ 
 # On Windows, produce static libraries by default so that tests and tools work
 # without needing to move DLLs around.
 # On Emscripten, there is no concept of a shared library.
@@ -300,6 +305,14 @@ if(WIN32 OR EMSCRIPTEN)
   set(DEFAULT_BUILD_SHARED_LIBS OFF)
 else()
   set(DEFAULT_BUILD_SHARED_LIBS ON)
+endif()
+
+if(MSVC)
+  if(HERMES_BUILD_MSVC_DYNAMIC_RUNTIME_LIBRARY)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+  else()
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  endif()
 endif()
 
 set(HERMES_BUILD_SHARED_JSI ${DEFAULT_BUILD_SHARED_LIBS} CACHE BOOL "Build JSI as a shared library.")
@@ -574,6 +587,12 @@ endif()
 # If we have no ICU, then error out.
 if (NOT ICU_FOUND)
   message(FATAL_ERROR "Unable to find ICU.")
+endif()
+
+if(BUILD_SHARED_LIBS)
+  add_definitions(-DBUILDING_LIBRARIES_AS_DLL=1)
+else()
+  add_definitions(-DBUILDING_LIBRARIES_AS_DLL=0)
 endif()
 
 # Declare a function that links ICU for the given target.

@@ -6,9 +6,13 @@
  */
 
 #ifndef HERMES_EXPORT
+#if defined(BUILDING_LIBRARIES_AS_DLL) && BUILDING_LIBRARIES_AS_DLL!=0
 #ifdef _MSC_VER
 #define HERMES_EXPORT __declspec(dllexport)
 #else // _MSC_VER
 #define HERMES_EXPORT __attribute__((visibility("default")))
 #endif // _MSC_VER
+#else
+#define HERMES_EXPORT
+#endif
 #endif // !defined(HERMES_EXPORT)
